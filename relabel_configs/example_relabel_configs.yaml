@@ -9,6 +9,7 @@ relabel_configs:
   replacement: '$1:80'
   target_label: __address__
 
+# Below block is a template config
 - action: keep
   source_labels: [<source label name list>]
   separator: <source labels separator>      # Defaults to ';'
@@ -21,3 +22,12 @@ relabel_configs:
 - action: keep
   source_labels: [__name__]
   regex: '(api_|http_).*'
+
+# Below block is a template config
+- action: labelmap
+  regex: <regular expression>               # Defaults to '(.*)' (matching any value)
+  replacement: <replacement string>         # Defaults to '$1' (using the first capturing group as a replacement)
+
+- action: labelmap
+  regex: __meta_kubernetes_service_label_(.+)
+  replacement: 'k8s_$1'
