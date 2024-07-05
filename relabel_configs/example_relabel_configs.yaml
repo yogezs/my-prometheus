@@ -1,0 +1,23 @@
+relabel_configs:
+- action: replace
+  replacement: production
+  target_label: env
+
+- action: replace
+  source_labels: [__address__]
+  regex: ([^:]+)(?::\d+)?   # The first group matches the host, the second matches the port.
+  replacement: '$1:80'
+  target_label: __address__
+
+- action: keep
+  source_labels: [<source label name list>]
+  separator: <source labels separator>      # Defaults to ';'
+  regex: <regular expression>               # Defaults to '(.*)' (matching any value)
+
+- action: keep
+  source_labels: [__meta_kubernetes_service_annotation_example_io_should_be_scraped]
+  regex: true
+
+- action: keep
+  source_labels: [__name__]
+  regex: '(api_|http_).*'
