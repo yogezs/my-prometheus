@@ -30,4 +30,4 @@ relabel_configs:
 
 - action: labelmap
   regex: __meta_kubernetes_service_label_(.+)
-  replacement: 'k8s_$1'
+  replacement: 'k8s_$1' # __meta_kubernetes_service_label_<labelname> label will be replaced by k8s_<labelname>
