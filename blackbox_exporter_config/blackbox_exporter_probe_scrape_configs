@@ -1,0 +1,17 @@
+  scrape_configs:  # This will be part of prometheus.yaml
+  - job_name: 'blackbox-dns'
+    metrics_path: /probe # Don't scrape /metrics, but /probe on the Blackbox Exporter.
+    params:
+      module:
+        - resolve_prometheus # Select the "resolve_prometheus" module configured in the Blackbox Exporter.
+    static_configs:
+      - targets:
+        - '1.1.1.1'  # Check if the public Cloudflare/APNIC DNS service can resolve prometheus.io.
+        - '8.8.8.8'  # Check if Google's public DNS service can resolve prometheus.io.
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__address__]
+        target_label: instance
+      - target_label: __address__
+        replacement: 127.0.0.1:9115  # Blackbox exporter address.
