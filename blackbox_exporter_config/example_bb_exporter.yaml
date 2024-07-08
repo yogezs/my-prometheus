@@ -1,3 +1,4 @@
+# blackbox.yaml for blackbox_exporter
 modules:
   # A module definition to run HTTP probes.
   http_2xx:
