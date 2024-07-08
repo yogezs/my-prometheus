@@ -31,3 +31,12 @@ relabel_configs:
 - action: labelmap
   regex: __meta_kubernetes_service_label_(.+)
   replacement: 'k8s_$1' # __meta_kubernetes_service_label_<labelname> label will be replaced by k8s_<labelname>
+
+- action: labelkeep
+  regex: <regular expression>  # Defaults to '(.*)' (matching any value)
+
+- action: labeldrop
+  regex: replica # Drop labels with names of replica from prometheus replica pod
+
+- action: labeldrop
+  regex: info_.* # Drop unwanted/noisy labels starting with 'info_'
