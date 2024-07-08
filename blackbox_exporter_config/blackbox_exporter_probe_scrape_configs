@@ -15,3 +15,21 @@
         target_label: instance
       - target_label: __address__
         replacement: 127.0.0.1:9115  # Blackbox exporter address.
+
+  - job_name: 'blackbox-http'
+    metrics_path: /probe # Don't scrape /metrics, but /probe on the Blackbox Exporter.
+    params:
+      module:
+        - http_2xx # Select the "http_2xx" module configured in the Blackbox Exporter.
+    static_configs:
+      - targets:
+        - 'http://prometheus.io'     # Target to probe with HTTP.
+        - 'https://prometheus.io'    # Target to probe with HTTPS.
+        - 'http://promlabs.com:8080' # Unreachable target to probe with HTTP on port 8080.
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__address__]
+        target_label: instance
+      - target_label: __address__
+        replacement: 127.0.0.1:9115  # Blackbox exporter address.
