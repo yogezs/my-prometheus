@@ -1,0 +1,9 @@
+- targets:
+   - 'prometheus-target-demo1.com:10000'
+   - 'prometheus-target-demo2.com:10001'
+  labels:
+    env: production
+- targets:
+   - 'prometheus-taregt-demo3.com:10002'
+  labels:
+    env: staging
