@@ -1,0 +1,7 @@
+# Adding sample service_discovery scrape configuration in prometheus.yaml
+# This will be part of main prometheus.yaml
+scrape_config:
+- job_name: 'demo-file-sd'
+    file_sd_configs:
+      - files:
+        - 'targets.yml'
